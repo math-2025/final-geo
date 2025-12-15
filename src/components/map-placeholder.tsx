@@ -1114,16 +1114,17 @@ const handleCanvasMouseLeave = () => {
                 ))}
                  {/* Render Decoys */}
                 {!isLoadingDecoys && decoys?.map((decoy) => (
-                   <Tooltip key={decoy.id} delayDuration={100}>
-                      <TooltipTrigger asChild>
-                        <div className="absolute pointer-events-auto" style={{ top: `${decoy.latitude}%`, left: `${decoy.longitude}%`, transform: 'translate(-50%, -50%)' }} data-interactive onClick={(e) => e.stopPropagation()}>
-                          <div className="relative w-5 h-5">
-                              <div className="absolute inset-0 bg-red-600 rounded-full pulse-anim"></div>
-                              <div className="absolute inset-1 bg-red-400 rounded-full"></div>
+                  <div key={decoy.id} className="absolute" style={{ top: `${decoy.latitude}%`, left: `${decoy.longitude}%`, transform: 'translate(-50%, -50%)' }} data-interactive>
+                    <DropdownMenu>
+                      <DropdownMenuTrigger asChild>
+                        <button className="pointer-events-auto" onClick={(e) => e.stopPropagation()}>
+                          <div className="relative w-5 h-5 cursor-pointer">
+                            <div className="absolute inset-0 bg-red-600 rounded-full pulse-anim"></div>
+                            <div className="absolute inset-1 bg-red-400 rounded-full"></div>
                           </div>
-                        </div>
-                      </TooltipTrigger>
-                      <TooltipContent data-interactive className="max-w-sm p-4 bg-background/90 backdrop-blur-sm border-accent/20">
+                        </button>
+                      </DropdownMenuTrigger>
+                      <DropdownMenuContent onClick={(e) => e.stopPropagation()} className="max-w-sm p-4 bg-background/90 backdrop-blur-sm border-accent/20">
                           <p className='font-bold text-red-400 text-base mb-2'>Yem Hədəf: {decoy.publicName}</p>
                           {isCommander && (
                               <Button size="sm" className="w-full mt-2 bg-primary/80 hover:bg-primary" onClick={() => handleOpenDecryptDialog(decoy)}>
@@ -1131,8 +1132,9 @@ const handleCanvasMouseLeave = () => {
                                   Deşifrələ
                               </Button>
                           )}
-                      </TooltipContent>
-                  </Tooltip>
+                      </DropdownMenuContent>
+                    </DropdownMenu>
+                  </div>
                 ))}
               </div>
               <canvas
@@ -1332,3 +1334,4 @@ const handleCanvasMouseLeave = () => {
     </div>
   );
 }
+
